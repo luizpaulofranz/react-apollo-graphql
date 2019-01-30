@@ -6,8 +6,7 @@
   "scripts": {
     "server": "nodemon server.js",
     "client": "cd client && npm start",
-    "dev":
-      "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +18,7 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "graphql": "^0.13.2",
+    "graphql": "^14.1.1",
     "graphql-tools": "^3.0.2",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.3"

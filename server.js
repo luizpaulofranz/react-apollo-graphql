@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 // to read our env variables file
 require('dotenv').config({path: 'variables.env'});
 
@@ -26,6 +27,13 @@ mongoose.connect(process.env.MONGO_URI)
 
 // initialize application
 const app = express();
+// set cors options, here we use only one allowed origin
+const corsOpt = {
+    origin: 'http://localhost:3000',
+    credentials: true
+}
+app.use(cors(corsOpt));
+
 // set graphiql tool viwer, wich uses the endpoint seted bellow
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // connect schenas with graphQl

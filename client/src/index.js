@@ -25,7 +25,7 @@ const Root = () => (
         </Switch>
     </Router>
 )
-
+// to use special tags to handle graphQL
 ReactDOM.render(
     <ApolloProvider client={client}>
         <Root />

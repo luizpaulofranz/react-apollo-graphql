@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const createToken = (user, secret, expiresIn) => {
     const { username, email } = user;
@@ -15,7 +16,7 @@ exports.resolvers = {
     },
 
     Mutation: {
-        // last argument is context argument
+        // first argument is always root, second is our variables and last argument is context argument, Context is a model
         addRecipe: async (root, { name, description, category, instructions, username}, { Recipe } ) => 
         {
             const newRecipe = await new Recipe({
@@ -43,6 +44,19 @@ exports.resolvers = {
             }).save();
 
             return { token: createToken(newUser, process.env.SECRET, "1hr") }
+        },
+
+        signInUser: async (root, { email, password }, { User } ) => {
+            const user = await User.findOne({ email });
+            if (!user) {
+                throw new Error('User not found!')
+            }
+            // to check encrypted password
+            const isValidPass = await bcrypt.compare(password, user.password);
+            if (!isValidPass) {
+                throw new Error('Invalid password!');
+            }
+            return { token: createToken(user, process.env.SECRET, "1hr") }
         }
     }
 

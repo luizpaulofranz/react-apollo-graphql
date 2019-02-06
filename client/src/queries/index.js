@@ -26,3 +26,11 @@ export const SIGNUP_USER = gql `
         {token}
     }
 `;
+
+export const SIGNIN_USER = gql `
+    mutation($email: String!, $password: String!){
+        signInUser(email: $email, password: $password) {
+        token
+        }
+    }
+`;

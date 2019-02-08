@@ -34,6 +34,13 @@ const corsOpt = {
 }
 app.use(cors(corsOpt));
 
+// set up JWT authentication middleware
+app.use(async (req, res, next) => {
+    const token = req.headers['authorization']
+    console.log(token);
+    next();
+});
+
 // set graphiql tool viwer, wich uses the endpoint seted bellow
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // connect schenas with graphQl

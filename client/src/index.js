@@ -6,6 +6,7 @@ import './index.css';
 import App from './components/App';
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
+import WithSession from './components/withSession';
 
 // react - apollo
 import ApolloClient from 'apollo-boost'
@@ -36,20 +37,24 @@ const client = new ApolloClient({
     }
 });
 
-const Root = () => (
+const Root = ({refetch}) => (
     <Router>
         <Switch>
             <Route path="/" exact component={App} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" render={() => <SignIn refetch={refetch} />} />
+            <Route path="/signup" render={() => <SignUp refetch={refetch} />} />
             <Redirect to="/" />
         </Switch>
     </Router>
 )
+
+// wrapper to control access by token
+const RootWithSession = WithSession(Root);
+
 // to use special tags to handle graphQL
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Root />
+        <RootWithSession />
     </ApolloProvider>, 
     document.getElementById('root')
 );

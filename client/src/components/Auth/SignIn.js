@@ -2,6 +2,7 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import Error from '../Error';
 import { SIGNIN_USER } from '../../queries/index';
+import { withRouter } from 'react-router-dom';
 
 const initialState = {
     email: "",
@@ -24,10 +25,12 @@ class SignIn extends React.Component {
 
     handleSubmit = (event, signInUser) => {
         event.preventDefault();
-        signInUser().then(( {data} ) => {
+        signInUser().then( async ( {data} ) => {
             console.log(data);
-            localStorage.setItem('token', data.signInUser.token)
+            localStorage.setItem('token', data.signInUser.token);
+            await this.props.refetch();
             this.clearState();
+            this.props.history.push('/');
         })
     }
 
@@ -63,4 +66,5 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+// withRouter is to be able to use this.props.history.push('/path')
+export default withRouter(SignIn);

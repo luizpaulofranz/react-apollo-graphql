@@ -12,6 +12,19 @@ exports.resolvers = {
         getAllRecipes: async ( root, args, { Recipe }) => {
             const recipes = await Recipe.find();
             return recipes;
+        },
+        
+        getCurrentUser: async (root, args, { currentUser, User }) => {
+            if (!currentUser) {
+                return null;
+            }
+            const user = await User.findOne({email: currentUser.email})
+            // to populate the Favorite field of this user
+            .populate({
+                path: 'favorites',
+                model: 'Recipe'
+            });
+            return user;
         }
     },
 

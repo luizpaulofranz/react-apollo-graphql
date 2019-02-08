@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 // to read our env variables file
 require('dotenv').config({path: 'variables.env'});
 
@@ -36,21 +37,31 @@ app.use(cors(corsOpt));
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {
-    const token = req.headers['authorization']
-    console.log(token);
+    const token = req.headers['authorization'];
+    if (token  !== "null") {
+        try {
+            const currentUser = await jwt.verify(token, process.env.SECRET);
+            req.currentUser = currentUser;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    //console.log(token);
     next();
 });
 
 // set graphiql tool viwer, wich uses the endpoint seted bellow
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // connect schenas with graphQl
-app.use('/graphql', bodyParser.json(), graphqlExpress({
+app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({
         schema: schema,
+        // this variables setted here, are visible in our resolver file
         context: {
             Recipe,
-            User
+            User,
+            currentUser
         }
-    }
+    })
 ));
 
 const PORT = process.env.PORT || 4444;

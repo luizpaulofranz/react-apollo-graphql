@@ -28,6 +28,7 @@ class SignIn extends React.Component {
         signInUser().then( async ( {data} ) => {
             console.log(data);
             localStorage.setItem('token', data.signInUser.token);
+            // this forces the execution of auth query whenever this method is called, refetch comes from with Session
             await this.props.refetch();
             this.clearState();
             this.props.history.push('/');

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './index.css';
@@ -11,6 +11,7 @@ import WithSession from './components/withSession';
 // react - apollo
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo';
+import Navbar from './components/Navbar';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4444/graphql',
@@ -37,14 +38,18 @@ const client = new ApolloClient({
     }
 });
 
+// the refetch property comes from withSession Component
 const Root = ({refetch}) => (
     <Router>
-        <Switch>
-            <Route path="/" exact component={App} />
-            <Route path="/signin" render={() => <SignIn refetch={refetch} />} />
-            <Route path="/signup" render={() => <SignUp refetch={refetch} />} />
-            <Redirect to="/" />
-        </Switch>
+        <Fragment> {/* Router must have only one child, so we use this fragment. */}
+            <Navbar />
+            <Switch>
+                <Route path="/" exact component={App} />
+                <Route path="/signin" render={() => <SignIn refetch={refetch} />} />
+                <Route path="/signup" render={() => <SignUp refetch={refetch} />} />
+                <Redirect to="/" />
+            </Switch>
+        </Fragment>
     </Router>
 )
 

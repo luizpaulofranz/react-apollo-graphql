@@ -14,6 +14,6 @@ const NavbarUnAuth = () => (
         <li><NavLink to="/signin">SignIn</NavLink></li>
         <li><NavLink to="/signup">SignUp</NavLink></li>
     </ul>
-)
+);
 
 export default Navbar;

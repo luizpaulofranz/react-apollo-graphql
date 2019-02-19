@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { GET_CURRENT_USER } from '../queries';
 
+// Query component keeps cache, so we use refetch to force reload the data.
 const withSession = Component => props => (
     <Query query={GET_CURRENT_USER}>
         { ({data, loading, refetch}) => {

@@ -43,10 +43,10 @@ const client = new ApolloClient({
 
 // the refetch property comes from withSession Component
 // we use it because graphql keep cache, and with this we force to refetch data
-const Root = ({refetch}) => (
+const Root = ({refetch, session}) => (
     <Router>
         <Fragment> {/* Fragment is a default react wrapper. Router must have only one child, so we use this fragment. */}
-            <Navbar />
+            <Navbar session={session} />
             <Switch>
                 <Route path="/" exact component={App} />
                 <Route path="/search" component={Search} />

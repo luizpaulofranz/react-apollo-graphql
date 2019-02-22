@@ -10,13 +10,21 @@ const RecipePage = ({ match }) => {
     console.log(_id);
     return (
         <Query query={GET_RECIPE} variables={{_id}}>
-            { (data, loading, error) => {
-                if (loading) return <div>Loading...</div>
+            { ({ data }, loading, error) => {
+                if (loading || !data.getRecipe) return <div>Loading...</div>
+
                 if (error) return <div>Error...</div>
+
                 console.log(data);
                 return (
-                    <div>
-                        ReecipePage
+                    <div className="App">
+                        <h2>{data.getRecipe.name}</h2>
+                        <p>Category: {data.getRecipe.category}</p>
+                        <p>Description: {data.getRecipe.description}</p>
+                        <p>Instructions: {data.getRecipe.instructions}</p>
+                        <p>Likes: {data.getRecipe.likes}</p>
+                        <p>Created by: {data.getRecipe.username}</p>
+                        <button>Like</button>
                     </div>
                 );
             }}

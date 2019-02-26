@@ -10,7 +10,7 @@ exports.resolvers = {
     
     Query: {
         getAllRecipes: async ( root, args, { Recipe }) => {
-            const recipes = await Recipe.find();
+            const recipes = await Recipe.find().sort({ createdDate: 'desc' });
             return recipes;
         },
 

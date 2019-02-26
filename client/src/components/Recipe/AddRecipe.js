@@ -1,35 +1,45 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
 import { ADD_RECIPE } from '../../queries/index';
 import Error from '../Error';
 
+const initialState = {
+    name: '',
+    category: 'Breackfast',
+    description: '',
+    instructions: '',
+    username: ''
+}
+
 class AddRecipe extends React.Component {
 
-    state = {
-        name: '',
-        category: 'Breackfast',
-        description: '',
-        instructions: '',
-        username: ''
+    state = { ...initialState }
+
+    clearState = () => {
+        this.setState({ ...initialState });
     }
 
     componentDidMount() {
         this.setState({ 
             username: this.props.session.getCurrentUser.username
          });
+         //console.log(this.state);
     }
 
     handleChange = event => {
         const { name, value } = event.target;
-        console.log(name+": "+value);
+        // console.log(name+": "+value);
         this.setState({ [name]: value });
     }
 
     handleSubmit = (event, addRecipe) => {
         event.preventDefault();
         addRecipe().then(({ data }) => {
-            console.log(data)
+            console.log(data);
+            this.clearState();
+            this.props.history.push('/');
         });
     }
 
@@ -70,4 +80,4 @@ class AddRecipe extends React.Component {
    
 };
 
-export default AddRecipe;
+export default withRouter(AddRecipe);

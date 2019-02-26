@@ -26,7 +26,7 @@ const RecipeSchema = new Schema({
         type: Number,
         default: 0
     },
-    userName: {
+    username: {
         type: String
     }
 });

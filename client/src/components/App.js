@@ -11,8 +11,9 @@ const App = () => (
   <div className="App">
     <h1>Home</h1>
 
-    {/* that's how we call our queries using react-apollo helper */}
-    <Query query={GET_ALL_RECIPES}>
+    {/* that's how we call our queries using react-apollo helper 
+    fetchPolicy is to handle the react-appolo cache policies, to force a refetch*/}
+    <Query query={GET_ALL_RECIPES} fetchPolicy={'network-only'}>
       { ( {data, loading, error} ) => {
 
           if (loading) return <div>Loading</div>;

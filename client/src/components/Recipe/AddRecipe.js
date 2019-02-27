@@ -2,7 +2,7 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
-import { ADD_RECIPE } from '../../queries/index';
+import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries/index';
 import Error from '../Error';
 
 const initialState = {
@@ -48,10 +48,21 @@ class AddRecipe extends React.Component {
         const isInvalid = !name || !category || !description || !instructions || !username;
         return isInvalid;
     }
+
+    // with this, we add our new inserted recipe to the apollo client cache manually, and then we are able to use this data
+    updateCache = (cache, { data: { addRecipe } }) => {
+        const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES });
+        cache.writeQuery({
+            query: GET_ALL_RECIPES,
+            data: {
+                getAllRecipes: [addRecipe, ...getAllRecipes]
+            }
+        });
+    }
     
     render() {
         return (
-            <Mutation mutation={ADD_RECIPE} variables={this.state}>
+            <Mutation mutation={ADD_RECIPE} variables={this.state} update={this.updateCache}>
                 { ( addRecipe, {data, loading, error}) => (
                         <div className="App">
                             <h2 className="App">Add Recipe</h2>

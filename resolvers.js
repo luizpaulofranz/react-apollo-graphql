@@ -30,6 +30,15 @@ exports.resolvers = {
                 model: 'Recipe'
             });
             return user;
+        },
+
+        searchRecipes: async (root, { searchTerm }, { Recipe }) => {
+            if (searchTerm) {
+
+            } else {
+                const recipes = await Recipe.find().sort( {likes: 'desc', createdDate: 'desc'} );
+                return recipes;
+            }
         }
     },
 

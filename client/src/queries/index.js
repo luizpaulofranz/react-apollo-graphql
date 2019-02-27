@@ -27,6 +27,21 @@ export const GET_RECIPE = gql`
     }
 `;
 
+export const SEARCH_RECIPES = gql`
+    query($searchTerm: String) {
+        searchRecipes(searchTerm: $searchTerm) {
+            _id
+            name
+            category
+            description
+            instructions
+            createdDate
+            likes
+            username
+        }
+    }
+`;
+
 /* RECIPES MUTATIONS */
 
 export const ADD_RECIPE = gql`

@@ -38,7 +38,7 @@ class Search extends React.Component{
 
                             <ul>
                                 { this.state.searchResults.map( recipe => (
-                                    <RecipeItem key={recipe._id} {...recipe} />
+                                    <RecipeItem key={recipe._id} showLikes="true" {...recipe} />
                                 ))}
                             </ul>
                         </div>

@@ -31,4 +31,9 @@ const RecipeSchema = new Schema({
     }
 });
 
+// creates index of type text on all fields $** on Recipe
+RecipeSchema.index({
+    '$**': 'text'
+});
+
 module.exports = mongoose.model('Recipe', RecipeSchema);

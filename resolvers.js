@@ -34,7 +34,18 @@ exports.resolvers = {
 
         searchRecipes: async (root, { searchTerm }, { Recipe }) => {
             if (searchTerm) {
-
+                const searchResults = await Recipe.find({
+                    // thats how we perform a search using a index
+                    $text: { $search: searchTerm }
+                },{
+                    // basically adds a new field on our recipes
+                    // score is a field that represents the concordance with the term searched, sorting by the most apropriate term result
+                    score: { $meta: "textScore" }
+                }).sort({
+                    // and here we sort by this new field
+                    score: { $meta: "textScore" }
+                });
+                return searchResults;
             } else {
                 const recipes = await Recipe.find().sort( {likes: 'desc', createdDate: 'desc'} );
                 return recipes;

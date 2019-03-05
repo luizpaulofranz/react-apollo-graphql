@@ -50,6 +50,13 @@ exports.resolvers = {
                 const recipes = await Recipe.find().sort( {likes: 'desc', createdDate: 'desc'} );
                 return recipes;
             }
+        },
+
+        getUserRecipes: async (root, { username }, { Recipe }) => {
+            const userRecipes = await Recipe.find({ username }).sort({
+                createdDate: 'desc'
+            });
+            return userRecipes;
         }
     },
 

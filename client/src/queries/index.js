@@ -58,6 +58,20 @@ export const ADD_RECIPE = gql`
     }
 `;
 
+export const DELETE_USER_RECIPE = gql`
+    mutation( $_id: ID! ) {
+        deleteUserRecipe( _id: $_id ) {
+            _id
+            name
+            category
+            description
+            instructions
+            createdDate
+            likes
+        }
+    }
+`;
+
 /* USER QUERIES */
 
 export const GET_CURRENT_USER = gql`

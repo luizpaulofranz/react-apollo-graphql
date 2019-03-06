@@ -35,8 +35,9 @@ exports.typeDefs = `
     }
 
     type Mutation {
-        
         addRecipe(name: String!, description: String!, category: String!, instructions: String!, username: String): Recipe
+        deleteUserRecipe(_id: ID): Recipe
+
         signUpUser(username: String!, email: String!, password: String!): Token
         signInUser(email: String!, password: String): Token
     }

@@ -75,6 +75,11 @@ exports.resolvers = {
             return newRecipe;
         },
 
+        deleteUserRecipe: async (root, { _id }, { Recipe }) => {
+            const recipe = await Recipe.findOneAndRemove({ _id });
+            return recipe;
+        },
+
         signUpUser: async (root, { username, email, password }, { User } ) => {
             const user = await User.findOne({ email });
             // if already exists

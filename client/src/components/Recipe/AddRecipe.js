@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 
 import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries/index';
 import Error from '../Error';
@@ -91,4 +92,4 @@ class AddRecipe extends React.Component {
    
 };
 
-export default withRouter(AddRecipe);
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddRecipe));

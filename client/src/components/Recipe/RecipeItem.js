@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
-import { DELETE_USER_RECIPE, GET_USER_RECIPES } from '../../queries/index';
+import { DELETE_USER_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, GET_CURRENT_USER } from '../../queries/index';
 
 const handleDelete = deleteUserRecipe => {
     const confimDelete = window.confirm("Are you sure you want to delete this recipe?");
@@ -19,7 +19,15 @@ const RecipeItem = (recipe) => (
         
         {/* here we delete our recipes */}
         {recipe.showDelete ? 
-            <Mutation mutation={DELETE_USER_RECIPE} variables={{_id: recipe._id}} update={ (cache, {data: { deleteUserRecipe } }) => {
+            <Mutation 
+                mutation={DELETE_USER_RECIPE} 
+                variables={{_id: recipe._id}} 
+                // here we refetch this other queries to keep all local cache ok
+                refetchQueries={() => [
+                    {query: GET_ALL_RECIPES},
+                    {query: GET_CURRENT_USER}
+                ]}
+                update={ (cache, {data: { deleteUserRecipe } }) => {
                 // here we read from cache and destructure the variable getUserQuery from cache, 
                 // so we remove on backend and remove locally from cache, with this, the UI is correct updated
                 const { username } = recipe;

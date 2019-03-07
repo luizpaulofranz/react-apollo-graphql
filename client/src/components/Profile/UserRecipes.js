@@ -16,7 +16,7 @@ const UserRecipes = ({username}) => (
                 <ul>
                     <h3>Your Recipes</h3>
                     { data.getUserRecipes.map( recipe => (
-                        <RecipeItem key={recipe._id} showLikes="true" showDelete {...recipe} />
+                        <RecipeItem key={recipe._id} showLikes="true" showDelete username={username} {...recipe} />
                     ))}
                 </ul>
             );

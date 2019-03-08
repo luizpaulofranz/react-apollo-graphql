@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 
-import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries/index';
+import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries/index';
 import Error from '../Error';
 
 const initialState = {
@@ -62,8 +62,16 @@ class AddRecipe extends React.Component {
     }
     
     render() {
+        const { username } = this.state;
         return (
-            <Mutation mutation={ADD_RECIPE} variables={this.state} update={this.updateCache}>
+            <Mutation 
+                mutation={ADD_RECIPE} 
+                variables={this.state} 
+                update={this.updateCache} 
+                refetchQueries={() => [
+                    {query: GET_USER_RECIPES, variables:{ username }} // to keep recipes on profile page up-to-date
+                ]}>
+
                 { ( addRecipe, {data, loading, error}) => (
                         <div className="App">
                             <h2 className="App">Add Recipe</h2>

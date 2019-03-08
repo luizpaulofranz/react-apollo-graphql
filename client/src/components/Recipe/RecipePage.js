@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { Query } from 'react-apollo';
 import { GET_RECIPE } from '../../queries/index';
+import LikeRecipe from './LikeRecipe';
 
 // the match object comes from withRouter, and allow us to get the URL params
 const RecipePage = ({ match }) => {
@@ -24,7 +25,7 @@ const RecipePage = ({ match }) => {
                         <p>Instructions: {data.getRecipe.instructions}</p>
                         <p>Likes: {data.getRecipe.likes}</p>
                         <p>Created by: {data.getRecipe.username}</p>
-                        <button>Like</button>
+                        <LikeRecipe />
                     </div>
                 );
             }}

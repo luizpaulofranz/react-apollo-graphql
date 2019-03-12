@@ -77,7 +77,15 @@ exports.resolvers = {
 
         likeRecipe: async (root, { _id, email }, { Recipe, User }) => {
             const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 }});
+            // $addToSet adds on that foreignt key list
             const user = await User.findOneAndUpdate({ email }, { $addToSet: { favorites: _id }});
+            return recipe;
+        },
+
+        unlikeRecipe: async (root, { _id, email }, { Recipe, User }) => {
+            const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: -1 }});
+            // $pull removes from that foreignt key list
+            const user = await User.findOneAndUpdate({ email }, { $pull: { favorites: _id }});
             return recipe;
         },
 

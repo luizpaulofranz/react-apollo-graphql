@@ -38,6 +38,7 @@ exports.typeDefs = `
         addRecipe(name: String!, description: String!, category: String!, instructions: String!, username: String): Recipe
         deleteUserRecipe(_id: ID): Recipe
         likeRecipe(_id: ID!, email: String!): Recipe
+        unlikeRecipe(_id: ID!, email: String!): Recipe
 
         signUpUser(username: String!, email: String!, password: String!): Token
         signInUser(email: String!, password: String): Token

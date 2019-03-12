@@ -8,7 +8,6 @@ import LikeRecipe from './LikeRecipe';
 // the match object comes from withRouter, and allow us to get the URL params
 const RecipePage = ({ match }) => {
     const { _id } = match.params; // to get the URL params
-    console.log(_id);
     return (
         <Query query={GET_RECIPE} variables={{_id}}>
             { ({ data }, loading, error) => {
@@ -16,7 +15,7 @@ const RecipePage = ({ match }) => {
 
                 if (error) return <div>Error...</div>
 
-                console.log(data);
+                //console.log(data);
                 return (
                     <div className="App">
                         <h2>{data.getRecipe.name}</h2>

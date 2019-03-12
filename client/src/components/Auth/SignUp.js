@@ -28,7 +28,6 @@ class SignUp extends React.Component {
     handleSubmit = (event, signUpUser) => {
         event.preventDefault(); 
         signUpUser().then( async ({data}) => {
-            console.log(data);
             localStorage.setItem('token', data.signUpUser.token);
             // this forces the execution of auth query whenever this method is called, refetch comes from with Session
             await this.props.refetch();

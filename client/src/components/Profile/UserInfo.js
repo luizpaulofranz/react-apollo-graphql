@@ -9,7 +9,6 @@ const formatedDate = date => {
 
 const UserInfo = ({ session }) => (
     <div>
-        {console.log(session)}
         <h3>User Info</h3>
         <p>Username: {session.getCurrentUser.username}</p>
         <p>Email: {session.getCurrentUser.email}</p>

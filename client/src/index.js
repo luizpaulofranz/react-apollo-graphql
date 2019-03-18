@@ -17,8 +17,11 @@ import RecipePage from './components/Recipe/RecipePage';
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo';
 
+const apiUrl = 'http://localhost:4444/graphql';
+// const apiUrl = 'http://react-appolo-recipes-test.herokuapp.com/graphql';
+
 const client = new ApolloClient({
-    uri: 'http://localhost:4444/graphql',
+    uri: apiUrl,
     // bellow is to send our token access
     fetchOptions: {
         credentials: 'include'

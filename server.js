@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 // to read our env variables file
@@ -51,7 +52,8 @@ app.use(async (req, res, next) => {
 });
 
 // set graphiql tool viwer, wich uses the endpoint seted bellow
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
 // connect schenas with graphQl
 app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({
         schema: schema,
@@ -63,6 +65,15 @@ app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({
         }
     })
 ));
+
+// production redirects always to our PWA enter point
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    // to send all requests to client/build/index.html
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 const PORT = process.env.PORT || 4444;
 app.listen(PORT, () => {

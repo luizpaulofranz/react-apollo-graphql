@@ -9,7 +9,7 @@ import RecipeItem from './Recipe/RecipeItem';
 
 const App = () => (
   <div className="App">
-    <h1>Home</h1>
+    <h1 className="main-title">Find Recipes You <strong>Love</strong></h1>
 
     {/* that's how we call our queries using react-apollo helper 
     fetchPolicy is to handle the react-appolo cache policies, to force a refetch fetchPolicy={'network-only'} */}
@@ -21,7 +21,7 @@ const App = () => (
 
 
           return (
-            <ul>
+            <ul className="cards">
               { data.getAllRecipes.map( recipe => (
                 <RecipeItem key={recipe._id} {...recipe} />
               ))}

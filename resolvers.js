@@ -62,10 +62,11 @@ exports.resolvers = {
 
     Mutation: {
         // first argument is always root, second is our variables and last argument is context argument, Context is a model
-        addRecipe: async (root, { name, description, category, instructions, username}, { Recipe } ) => 
+        addRecipe: async (root, { name, imageUrl, description, category, instructions, username}, { Recipe } ) => 
         {
             const newRecipe = await new Recipe({
                 name,
+                imageUrl,
                 description,
                 category,
                 instructions,

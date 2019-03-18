@@ -12,10 +12,14 @@ const handleDelete = deleteUserRecipe => {
 }
 
 const RecipeItem = (recipe) => (
-    <li> 
+    <li className="card"
+        style={{background: `url(${recipe.imageUrl}) center center / cover no-repeat`}}
+    > 
+    <span className={recipe.category}>{recipe.category}</span>
+    <div className="card-text">
         <Link to={`/recipes/${recipe._id}`}><h4>{recipe.name} </h4></Link>
-        <p><strong>{recipe.category}</strong></p>
         {recipe.showLikes ? <p>Likes: {recipe.likes}</p> : null}
+    </div>        
         
         {/* here we delete our recipes */}
         {recipe.showDelete ? 

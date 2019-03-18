@@ -8,6 +8,7 @@ import Error from '../Error';
 
 const initialState = {
     name: '',
+    imageUrl: '',
     category: 'Breackfast',
     description: '',
     instructions: '',
@@ -45,8 +46,8 @@ class AddRecipe extends React.Component {
     }
 
     validateForm = () => {
-        const { name, category, description, instructions, username } = this.state;
-        const isInvalid = !name || !category || !description || !instructions || !username;
+        const { name, imageUrl, category, description, instructions, username } = this.state;
+        const isInvalid = !name || !imageUrl || !category || !description || !instructions || !username;
         return isInvalid;
     }
 
@@ -77,6 +78,7 @@ class AddRecipe extends React.Component {
                             <h2 className="App">Add Recipe</h2>
                             <form className="form" onSubmit={event => this.handleSubmit(event, addRecipe)}>
                                 <input type="text" name="name" placeholder="Recipe Name" onChange={this.handleChange} value={this.state.name} />
+                                <input type="text" name="imageUrl" placeholder="Recipe Image" onChange={this.handleChange} value={this.state.imageUrl} />
                                 <select name="category" onChange={this.handleChange} value={this.state.category}>
                                     <option value="Breackfast">Breackfast</option>
                                     <option value="Lunch">Lunch</option>

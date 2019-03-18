@@ -52,7 +52,7 @@ app.use(async (req, res, next) => {
 });
 
 // set graphiql tool viwer, wich uses the endpoint seted bellow
-// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // connect schenas with graphQl
 app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({

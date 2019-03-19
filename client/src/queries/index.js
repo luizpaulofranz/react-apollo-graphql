@@ -58,7 +58,7 @@ export const UNLIKE_RECIPE = gql`
             ...LikeRecipe
         }
     }
-    ${recipeFragments.recipe}
+    ${recipeFragments.like}
 `;
 
 export const DELETE_USER_RECIPE = gql`

@@ -91,7 +91,7 @@ class LikeRecipe extends React.Component {
                     {/* we pass both mutation functions to handle click */}
                     { likeRecipe => 
                         username && ( 
-                        <button onClick={() => this.handleClick(likeRecipe, unlikeRecipe)}>
+                        <button className="likes-button" onClick={() => this.handleClick(likeRecipe, unlikeRecipe)}>
                             {!liked ? 'Like' : 'Unlike'}
                         </button>
                     )}

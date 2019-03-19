@@ -9,7 +9,7 @@ import Error from '../Error';
 const initialState = {
     name: '',
     imageUrl: '',
-    category: 'Breackfast',
+    category: 'Breakfast',
     description: '',
     instructions: '',
     username: ''
@@ -80,7 +80,7 @@ class AddRecipe extends React.Component {
                                 <input type="text" name="name" placeholder="Recipe Name" onChange={this.handleChange} value={this.state.name} />
                                 <input type="text" name="imageUrl" placeholder="Recipe Image" onChange={this.handleChange} value={this.state.imageUrl} />
                                 <select name="category" onChange={this.handleChange} value={this.state.category}>
-                                    <option value="Breackfast">Breackfast</option>
+                                    <option value="Breakfast">Breackfast</option>
                                     <option value="Lunch">Lunch</option>
                                     <option value="Dinner">Dinner</option>
                                     <option value="Snack">Snack</option>

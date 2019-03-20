@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
+import posed from 'react-pose';
+
 import { DELETE_USER_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, GET_CURRENT_USER } from '../../queries/index';
 
 const handleDelete = deleteUserRecipe => {
@@ -11,8 +13,13 @@ const handleDelete = deleteUserRecipe => {
     }
 }
 
+const RecipeLi = posed.li({
+    shown: { opacity: 1 },
+    hidden: { opacity: 0 }
+});
+
 const RecipeItem = (recipe) => (
-    <li className="card"
+    <RecipeLi className="card"
         style={{background: `url(${recipe.imageUrl}) center center / cover no-repeat`}}
     > 
     <span className={recipe.category}>{recipe.category}</span>
@@ -58,7 +65,7 @@ const RecipeItem = (recipe) => (
                 }}
             </Mutation>
         : null}
-    </li> 
+    </RecipeLi> 
 );
 
 export default RecipeItem;

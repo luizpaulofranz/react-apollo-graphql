@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
+import CKEditor from 'react-ckeditor-component';
 import withAuth from '../withAuth';
 
 import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries/index';
@@ -34,6 +35,11 @@ class AddRecipe extends React.Component {
         const { name, value } = event.target;
         // console.log(name+": "+value);
         this.setState({ [name]: value });
+    }
+
+    handleEditorChange = event => {
+        const newContent = event.editor.getData();
+        this.setState({instructions: newContent});
     }
 
     handleSubmit = (event, addRecipe) => {
@@ -87,7 +93,15 @@ class AddRecipe extends React.Component {
                                 </select>
             
                                 <input type="text" name="description" placeholder="Add Description" onChange={this.handleChange} value={this.state.description} />
-                                <textarea name="instructions" placeholder="Add Instructions" onChange={this.handleChange} value={this.state.instructions}></textarea>
+                                <label htmlFor="instructions">Instructions</label>
+                                
+                                <CKEditor 
+                                    name="instructions" 
+                                    content={this.state.instructions}
+                                    events={{change: this.handleEditorChange}}
+                                 />
+
+                                {/*<textarea name="instructions" placeholder="Add Instructions" onChange={this.handleChange} value={this.state.instructions}></textarea>*/}
                                 <button disabled={loading || this.validateForm()} className="button-primary" type="submit">Submit</button>
 
                                 { error && <Error error={error} /> }

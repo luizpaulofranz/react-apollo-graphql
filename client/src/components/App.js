@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import { GET_ALL_RECIPES } from '../queries';
 
 import RecipeItem from './Recipe/RecipeItem';
+import Spinner from './Spinner';
 
 // animated component, posed.ul creates a ul, posed.div creates a div, and so on...
 const RecipeList = posed.ul({
@@ -45,7 +46,7 @@ class App extends React.Component{
         <Query query={GET_ALL_RECIPES} >
           { ( {data, loading, error} ) => {
 
-              if (loading) return <div>Loading</div>;
+              if (loading) return <Spinner />;
               if (error) return <div>Error</div>;
 
 

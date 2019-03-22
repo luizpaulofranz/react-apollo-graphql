@@ -25,6 +25,7 @@ class Search extends React.Component{
                     return (
                         <div className="App">
                             <input type="search" name="search" 
+                                className="search"
                                 placeholder="Search for recipes" 
                                 onChange={ async event => {
                                     event.persist();

@@ -16,8 +16,8 @@ const UserInfo = ({ session }) => (
         <ul>
             <h3>Username: {session.getCurrentUser.username}'s Favorites:</h3>
             {session.getCurrentUser.favorites.map(favorite => (
-                <Link to={`/recipes/${favorite._id}`}>
-                    <li key={favorite._id}>{favorite.name}</li>
+                <Link key={favorite._id} to={`/recipes/${favorite._id}`}>
+                    <li>{favorite.name}</li>
                 </Link>
             ))}
             {!session.getCurrentUser.favorites.length && (<p><strong>You have no favorite Recipes, go ahead and add some!</strong></p>)}

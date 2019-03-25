@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 
@@ -19,17 +19,19 @@ const RecipeLi = posed.li({
 });
 
 const RecipeItem = (recipe) => (
-    <RecipeLi className="card"
+    <RecipeLi className={recipe.showDelete ? "" : "card"}
         style={{background: `url(${recipe.imageUrl}) center center / cover no-repeat`}}
     > 
-    <span className={recipe.category}>{recipe.category}</span>
-    <div className="card-text">
+    <span className={ recipe.showDelete ? "" : recipe.category}>{recipe.category}</span>
+    <div className={recipe.showDelete ? "" : "card-text"}>
         <Link to={`/recipes/${recipe._id}`}><h4>{recipe.name} </h4></Link>
         {recipe.showLikes ? <p>Likes: {recipe.likes}</p> : null}
-    </div>        
+    </div>
         
         {/* here we delete our recipes */}
         {recipe.showDelete ? 
+            <Fragment>
+            <button className="button-primary">Update</button>
             <Mutation 
                 mutation={DELETE_USER_RECIPE} 
                 variables={{_id: recipe._id}} 
@@ -64,6 +66,7 @@ const RecipeItem = (recipe) => (
                     )
                 }}
             </Mutation>
+            </Fragment>
         : null}
     </RecipeLi> 
 );

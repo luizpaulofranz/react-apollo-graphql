@@ -31,7 +31,7 @@ const RecipeItem = (recipe) => (
         {/* here we delete our recipes */}
         {recipe.showDelete ? 
             <Fragment>
-            <button className="button-primary">Update</button>
+            <Link to={`/recipes/edit/${recipe._id}`}><button className="button-primary">Update</button></Link>
             <Mutation 
                 mutation={DELETE_USER_RECIPE} 
                 variables={{_id: recipe._id}} 

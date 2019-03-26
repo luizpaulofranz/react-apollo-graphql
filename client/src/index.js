@@ -12,6 +12,7 @@ import Search from './components/Recipe/Search';
 import AddRecipe from './components/Recipe/AddRecipe';
 import Profile from './components/Profile/Profile';
 import RecipePage from './components/Recipe/RecipePage';
+import EditRecipe from './components/Recipe/EditRecipe';
 
 // react - apollo
 import ApolloClient from 'apollo-boost'
@@ -57,6 +58,7 @@ const Root = ({refetch, session}) => (
                 <Route path="/signin" render={() => <SignIn refetch={refetch} />} />
                 <Route path="/signup" render={() => <SignUp refetch={refetch} />} />
                 <Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
+                <Route path="/recipes/edit/:_id" component={EditRecipe} />
                 <Route path="/recipes/:_id" component={RecipePage} />
                 <Route path="/profile" render={() => <Profile session={session} />} />
                 <Redirect to="/" />

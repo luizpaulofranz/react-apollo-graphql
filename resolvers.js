@@ -76,6 +76,17 @@ exports.resolvers = {
             return newRecipe;
         },
 
+        updateUserRecipe: async (root, { _id, name, imageUrl, description, category, instructions}, { Recipe } ) => 
+        {
+            const updateRecipe = await Recipe.findOneAndUpdate(
+                { _id }, // find by first argument
+                { $set: { name, imageUrl, description, category, instructions } }, // $to set the data
+                { new: true }
+            );
+            
+            return updateRecipe;
+        },
+
         likeRecipe: async (root, { _id, email }, { Recipe, User }) => {
             const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 }});
             // $addToSet adds on that foreignt key list
